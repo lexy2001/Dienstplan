@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="Dienstplan" max_length="40" name="x_163412_urlaubska_x_163412_urlka_dienstplan" type="collection">
+        <element attributes="edge_encryption_enabled=true" label="Anmerkung1" max_length="100" name="u_a1" type="string"/>
+        <element label="Monat" mandatory="true" max_length="40" name="u_month" type="integer"/>
+        <element attributes="edge_encryption_enabled=true" label="T1" max_length="3" name="u_t1" type="string"/>
+        <element label="T2" max_length="3" name="u_t2" type="string"/>
+        <element label="T3" max_length="3" name="u_t3" type="string"/>
+        <element label="T4" max_length="3" name="u_t4" type="string"/>
+        <element label="T5" max_length="3" name="u_t5" type="string"/>
+        <element label="T6" max_length="3" name="u_t6" type="string"/>
+        <element label="T7" max_length="3" name="u_t7" type="string"/>
+        <element label="T8" max_length="3" name="u_t8" type="string"/>
+        <element label="T9" max_length="3" name="u_t9" type="string"/>
+        <element label="Mitarbeiter" mandatory="true" max_length="32" name="u_user" reference="sys_user" type="reference"/>
+        <element label="Jahr" mandatory="true" max_length="40" name="u_year" type="integer"/>
+        <index name="index">
+            <element name="u_user"/>
+        </index>
+    </element>
+</database>
