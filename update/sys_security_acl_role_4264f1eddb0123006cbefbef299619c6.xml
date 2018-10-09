@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_security_acl_role">
+    <sys_security_acl_role action="INSERT_OR_UPDATE">
+        <sys_class_name>sys_security_acl_role</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-10-09 11:58:24</sys_created_on>
+        <sys_id>4264f1eddb0123006cbefbef299619c6</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_163412_urlaubska_dienstplangruppen.x_163412_urlaubska.dienstplangruppen_user</sys_name>
+        <sys_package display_value="Urlaubskalender - Dienstplan - Projektplan" source="x_163412_urlaubska">70633b60db3023006cbefbef29961910</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Urlaubskalender - Dienstplan - Projektplan">70633b60db3023006cbefbef29961910</sys_scope>
+        <sys_security_acl display_value="x_163412_urlaubska_dienstplangruppen">4a64f1eddb0123006cbefbef299619c3</sys_security_acl>
+        <sys_update_name>sys_security_acl_role_4264f1eddb0123006cbefbef299619c6</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-10-09 11:58:24</sys_updated_on>
+        <sys_user_role display_value="x_163412_urlaubska.dienstplangruppen_user" name="x_163412_urlaubska.dienstplangruppen_user">c66431eddb0123006cbefbef29961966</sys_user_role>
+        <transaction_id/>
+    </sys_security_acl_role>
+</record_update>

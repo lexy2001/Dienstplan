@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="Dienstplangruppen" max_length="40" name="x_163412_urlaubska_dienstplangruppen" type="collection">
+        <element default="true" label="Aktiv" max_length="40" name="u_active" type="boolean"/>
+        <element attributes="edge_encryption_enabled=true" display="true" label="Gruppenname" mandatory="true" max_length="40" name="u_groupname" type="string"/>
+        <element attributes="edge_encryption_enabled=true" default="100" label="Reihenfolge" max_length="40" name="u_order" type="string"/>
+        <element attributes="no_sort=true,slushbucket_ref_no_expand=true" label="Leseberechtigte" max_length="1024" name="u_user_read" reference="sys_user" type="glide_list"/>
+    </element>
+</database>

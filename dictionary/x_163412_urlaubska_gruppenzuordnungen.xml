@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="Gruppenzuordnungen" max_length="40" name="x_163412_urlaubska_gruppenzuordnungen" type="collection">
+        <element label="Dienstplangruppe" mandatory="true" max_length="32" name="u_group" reference="x_163412_urlaubska_dienstplangruppen" type="reference"/>
+        <element default="100" label="Reihenfolge" max_length="40" name="u_order" type="integer"/>
+        <element label="Mitarbeiter" mandatory="true" max_length="32" name="u_user" reference="sys_user" type="reference"/>
+        <index name="index">
+            <element name="u_group"/>
+        </index>
+        <index name="index2">
+            <element name="u_user"/>
+        </index>
+    </element>
+</database>
