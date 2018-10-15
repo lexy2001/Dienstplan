@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_ui_page">
+    <sys_ui_page action="INSERT_OR_UPDATE">
+        <category>general</category>
+        <client_script><![CDATA[function beimLaden(){
+	var datum = new Date();
+	var intMonat = datum.getMonth();
+	var intJahr  = datum.getFullYear();
+ 	if (window.location.search.slice(1)!=''){
+ 		var queryString = (window.location.search.slice(1));
+ 		queryString = queryString.split('#')[0];
+ 		var arrURL = queryString.split('&');
+//		alert(arrURL);
+ 		for (var i=0; i<arrURL.length; i++) {
+ 			var a = arrURL[i].split('=');
+			tmpWert = a[1];
+			tmpName = a[0];
+			if(a[0]=='scroll')  var getScroll  = a[1];
+			if(a[0]=='ffJahr')  var getffJahr  = a[1];
+			if(a[0]=='ffMonat') var getffMonat = a[1];
+			//getUrl[tmpName] = tmpWert;
+ 			//alert (a[0]+' - '+a[1]);
+ 			//alert (tmpName+' - '+tmpWert);
+ 		}
+ 		if(getffJahr !='') intJahr =getffJahr;
+ 		if(getffMonat!='') intMonat=getffMonat;
+ 		if(getScroll =='%2B1') intMonat++;
+ 		if(getScroll =='-1') intMonat--;
+ 	}
+	
+	
+	
+	// var queryString = url ? url.split('?')[1] : window.location.search.slice(1);
+	document.getElementById('ffMonat').value = intMonat;
+	document.getElementById('ffJahr' ).value = intJahr;
+	document.getElementById('ffUser' ).value = gs.getUserName(); //ga.addQuery('user_name',gs.getUserName());
+	//alert(queryString);
+}]]></client_script>
+        <description>Gibt den eigenen Dienstplan aus</description>
+        <direct>true</direct>
+        <endpoint>x_163412_urlaubska_Eigenen DP anzeigen.do</endpoint>
+        <html><![CDATA[<html>
+	<body onload='beimLaden()'>
+		<h1>Eigener Dienstplan</h1>
+		<form method='GET' action='' target='_self'>
+	User  <input type='text' id='ffUser' name='ffUser'  value='' /><br />
+	Monat <input type='text' id='ffMonat' name='ffMonat' value='' /><br />
+	Jahr  <input type='text' id='ffJahr' name='ffJahr'  value='' /><br />
+	<input type='submit' name='scroll' value='-1' /><input type='submit' name='scroll' value='+1' /><br />
+		</form>
+		<textarea id='testfeld'></textarea>
+	</body>
+</html>
+]]></html>
+        <name>Eigenen DP anzeigen</name>
+        <processing_script/>
+        <sys_class_name>sys_ui_page</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-10-11 10:26:46</sys_created_on>
+        <sys_id>cc423306db0123006cbefbef29961994</sys_id>
+        <sys_mod_count>43</sys_mod_count>
+        <sys_name>Eigenen DP anzeigen</sys_name>
+        <sys_package display_value="Urlaubskalender - Dienstplan - Projektplan" source="x_163412_urlaubska">70633b60db3023006cbefbef29961910</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Urlaubskalender - Dienstplan - Projektplan">70633b60db3023006cbefbef29961910</sys_scope>
+        <sys_update_name>sys_ui_page_cc423306db0123006cbefbef29961994</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-10-15 11:27:53</sys_updated_on>
+    </sys_ui_page>
+</record_update>
