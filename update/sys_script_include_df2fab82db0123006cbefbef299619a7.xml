@@ -13,17 +13,38 @@ dbDiensplanLesen.prototype = Object.extendsObject(global.AbstractAjaxProcessor, 
 		var log = 'Logbuch';
 		var crlf = '\r\n';
 		log += crlf;
-		
+
 		// Übergebene Parameter
-		
+		var Jahr     = this.getParameter('sysparm_jahr');
+		var Monat    = this.getParameter('sysparm_monat');
+		var Anwender = this.getParameter('sysparm_anwender');
+		var TagMax   = this.getParameter('sysparm_tagmax');
 		// Leseberechtigung prüfen
 		
 		// Usernamen aus DB holen
 		
 		// Datensatz lesen
-		
+		var dpRead = new GlideRecord('x_163412_urlaubska_x_163412_urlka_dienstplan');
+			dpRead.addQuery('u_month', "=", Monat);
+			dpRead.addQuery('u_user' , "=", Anwender);
+			dpRead.addQuery('u_year' , "=", Jahr);
+			dpRead.query();
+		var ZW = '</td><td class="dpLegend';	
+		var dpOut = '<td class="dpLegend';
+		while (dpRead.next()) {
+			dpOut += dpRead.u_t1 + '">' + dpRead.u_t1 + ZW;
+			dpOut += dpRead.u_t2 + '">' + dpRead.u_t2 + ZW;
+			dpOut += dpRead.u_t3 + '">' + dpRead.u_t3 + ZW;
+			dpOut += dpRead.u_t4 + '">' + dpRead.u_t4 + ZW;
+			dpOut += dpRead.u_t5 + '">' + dpRead.u_t5 + ZW;
+			dpOut += dpRead.u_t6 + '">' + dpRead.u_t6 + ZW;
+			dpOut += dpRead.u_t7 + '">' + dpRead.u_t7 + ZW;
+			dpOut += dpRead.u_t8 + '">' + dpRead.u_t8 + ZW;
+			dpOut += dpRead.u_t9 + '">' + dpRead.u_t9 + '</td>';
+
+			}
 		// Datensatz zurückmelden
-		return log;
+		return dpOut; //log + ' - ' +
 	},
     type: 'dbDiensplanLesen'
 });]]></script>
@@ -31,13 +52,13 @@ dbDiensplanLesen.prototype = Object.extendsObject(global.AbstractAjaxProcessor, 
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-10-11 10:14:29</sys_created_on>
         <sys_id>df2fab82db0123006cbefbef299619a7</sys_id>
-        <sys_mod_count>3</sys_mod_count>
+        <sys_mod_count>9</sys_mod_count>
         <sys_name>dbDiensplanLesen</sys_name>
         <sys_package display_value="Urlaubskalender - Dienstplan - Projektplan" source="x_163412_urlaubska">70633b60db3023006cbefbef29961910</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="Urlaubskalender - Dienstplan - Projektplan">70633b60db3023006cbefbef29961910</sys_scope>
         <sys_update_name>sys_script_include_df2fab82db0123006cbefbef299619a7</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-10-11 10:24:30</sys_updated_on>
+        <sys_updated_on>2018-10-17 08:00:38</sys_updated_on>
     </sys_script_include>
 </record_update>

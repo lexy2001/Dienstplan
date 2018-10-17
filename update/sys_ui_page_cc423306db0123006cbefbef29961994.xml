@@ -4,7 +4,7 @@
         <category>general</category>
         <client_script><![CDATA[function beimLaden(){
 	var datum = new Date();
-	var intMonat = datum.getMonth();
+	var intMonat = datum.getMonth()+1;
 	var intJahr  = datum.getFullYear();
  	if (window.location.search.slice(1)!=''){
  		var queryString = (window.location.search.slice(1));
@@ -22,33 +22,105 @@
  			//alert (a[0]+' - '+a[1]);
  			//alert (tmpName+' - '+tmpWert);
  		}
- 		if(getffJahr !='') intJahr =getffJahr;
- 		if(getffMonat!='') intMonat=getffMonat;
+		if(getScroll != 'jetzt'){
+			if(getffJahr !='') intJahr =getffJahr;
+			if(getffMonat!='') intMonat=getffMonat;
+		}
  		if(getScroll =='%2B1') intMonat++;
  		if(getScroll =='-1') intMonat--;
  	}
-	
+	// Jahreswechsel berücksichtigen
+	var temp = new Date(intJahr, (intMonat-1), 1);
+	intMonat = temp.getMonth()+1;
+	intJahr  = temp.getFullYear();
 	
 	
 	// var queryString = url ? url.split('?')[1] : window.location.search.slice(1);
 	document.getElementById('ffMonat').value = intMonat;
 	document.getElementById('ffJahr' ).value = intJahr;
-	document.getElementById('ffUser' ).value = gs.getUserName(); //ga.addQuery('user_name',gs.getUserName());
-	//alert(queryString);
+	document.getElementById('User' ).value = g_user.firstName + ' ' + g_user.lastName;
+	document.getElementById('ffUser' ).value = g_user.userID;
+	// Formularbefüllung ENDE
+
+	// MaxTage des Monat
+	temp = new Date(intJahr, (intMonat), 0);
+	var intMaxTag = temp.getDate();
+	document.getElementById('TageMax' ).value = intMaxTag;
+		
+	// Lesen aus der Datenbank
+	// ***********************
+
+	// Instantiate the "dbDiensplanLesen - Script Include" 
+	var ScriptIncludeAufruf = new GlideAjax('dbDiensplanLesen');
+		ScriptIncludeAufruf.addParam('sysparm_name','DienstplanLesen');
+		ScriptIncludeAufruf.addParam('sysparm_monat', intMonat);
+		ScriptIncludeAufruf.addParam('sysparm_jahr', intJahr);
+		ScriptIncludeAufruf.addParam('sysparm_tagmax', intMaxTag);
+		ScriptIncludeAufruf.addParam('sysparm_anwender', g_user.userID);
+
+	// Send the request to the server
+	ScriptIncludeAufruf.getXML(outputLogfile);
+
+	// When the response is back from the server
+	function outputLogfile(response){
+		var Antwort = response.responseXML.documentElement.getAttribute("answer");
+		// g_form.clearValue('description');
+		// g_form.setValue('description','Nachfolger: '+ emailFromScriptInclude + g_form.getValue('description')); // u_instace_post
+		document.getElementById('testfeld' ).value = Antwort;
+// 		alert(Antwort);
+		var Kopfzeile = '<tr>';
+		var tMax=document.getElementById('TageMax' ).value; tMax++;
+		for (var i=1; i<tMax; i++) {
+			Kopfzeile += '<td width="40px">'+i+'</td>';
+		}
+		Kopfzeile += '</tr>';
+		document.getElementById('dbOutput').innerHTML = "<table>"+Kopfzeile+"<tr>" + Antwort + "</tr></table>";
+		// alert('Kopiervorgang abgeschlossen  \r\nBitte Ansicht der Liste Releasezuordnungen neu laden');
+		// location.reload();
+
+	}
+// }
 }]]></client_script>
         <description>Gibt den eigenen Dienstplan aus</description>
-        <direct>true</direct>
+        <direct>false</direct>
         <endpoint>x_163412_urlaubska_Eigenen DP anzeigen.do</endpoint>
         <html><![CDATA[<html>
+	<style>
+		.rahmenlos {
+			border: 0pt solid white;
+		}
+		.dpZelle{ 
+			border: 1pt solid black;
+		}
+	</style>
 	<body onload='beimLaden()'>
+		<center>
 		<h1>Eigener Dienstplan</h1>
 		<form method='GET' action='' target='_self'>
-	User  <input type='text' id='ffUser' name='ffUser'  value='' /><br />
-	Monat <input type='text' id='ffMonat' name='ffMonat' value='' /><br />
-	Jahr  <input type='text' id='ffJahr' name='ffJahr'  value='' /><br />
-	<input type='submit' name='scroll' value='-1' /><input type='submit' name='scroll' value='+1' /><br />
+			<table class='rahmenlos'>
+				<tr>
+					<td>
+						User
+					</td>
+					<td>
+						<input type='text' id='User' value='' class='rahmenlos' />
+						<input type='hidden' id='ffUser' name='ffUser'  value='' />
+					</td>
+				</tr>
+	<tr><td>Monat </td><td><input type='text' id='ffMonat' name='ffMonat' value='' class='rahmenlos' /></td></tr>
+	<tr><td>Jahr  </td><td><input type='text' id='ffJahr' name='ffJahr'  value='' class='rahmenlos' /></td></tr>
+	<tr><td colspan='2' align='center'>
+		<input type='submit' name='scroll' value='-1' title='Einen Monat zurück'/>
+		<input type='submit' name='scroll' value='jetzt' title='Zum aktuellen Monat' />
+		<input type='submit' name='scroll' value='+1' title='Einen Monat weiter' />
+		</td>
+			</tr>
+		</table>
 		</form>
 		<textarea id='testfeld'></textarea>
+			<input type='text' id='TageMax' value='' />
+			<div id='dbOutput'></div>
+		</center>
 	</body>
 </html>
 ]]></html>
@@ -58,13 +130,13 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-10-11 10:26:46</sys_created_on>
         <sys_id>cc423306db0123006cbefbef29961994</sys_id>
-        <sys_mod_count>43</sys_mod_count>
+        <sys_mod_count>75</sys_mod_count>
         <sys_name>Eigenen DP anzeigen</sys_name>
         <sys_package display_value="Urlaubskalender - Dienstplan - Projektplan" source="x_163412_urlaubska">70633b60db3023006cbefbef29961910</sys_package>
         <sys_policy/>
         <sys_scope display_value="Urlaubskalender - Dienstplan - Projektplan">70633b60db3023006cbefbef29961910</sys_scope>
         <sys_update_name>sys_ui_page_cc423306db0123006cbefbef29961994</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-10-15 11:27:53</sys_updated_on>
+        <sys_updated_on>2018-10-17 09:00:03</sys_updated_on>
     </sys_ui_page>
 </record_update>

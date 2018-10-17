@@ -12,11 +12,16 @@
         <order/>
         <script><![CDATA[function onLoad() {
    //Type appropriate comment here, and begin script below
-   alert('Hallo!');
-	disableAttachments();
-	document.write("<hr />");
-	document.write("<hr />");
-	document.write("<hr />");
+   alert("g_user.firstName = " + g_user.firstName 
+   	+ ", \n g_user.lastName = " + g_user.lastName 
+   	+ ", \n g_user.userName = " + g_user.userName 
+   	+ ", \n g_user.userID = " + g_user.userID);
+// 	//alert(isNewRecord() );
+// 	alert('Hallo!');
+// 	disableAttachments();
+// 	document.write("<hr />");
+// 	document.write("<hr />");
+// 	document.write("<hr />");
 }]]></script>
         <sys_class_name>sys_script_client</sys_class_name>
         <sys_created_by>admin</sys_created_by>
@@ -24,7 +29,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>cc210a71db4123006cbefbef299619c6</sys_id>
-        <sys_mod_count>3</sys_mod_count>
+        <sys_mod_count>5</sys_mod_count>
         <sys_name>BeimLaden</sys_name>
         <sys_overrides/>
         <sys_package display_value="Urlaubskalender - Dienstplan - Projektplan" source="x_163412_urlaubska">70633b60db3023006cbefbef29961910</sys_package>
@@ -32,7 +37,7 @@
         <sys_scope display_value="Urlaubskalender - Dienstplan - Projektplan">70633b60db3023006cbefbef29961910</sys_scope>
         <sys_update_name>sys_script_client_cc210a71db4123006cbefbef299619c6</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-10-10 10:34:32</sys_updated_on>
+        <sys_updated_on>2018-10-16 09:03:14</sys_updated_on>
         <table>x_163412_urlaubska_x_163412_urlka_dienstplan</table>
         <type>onLoad</type>
         <ui_type>10</ui_type>
